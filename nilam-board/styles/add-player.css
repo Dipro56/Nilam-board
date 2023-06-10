@@ -1,0 +1,16 @@
+.update-profile-photo {
+  display: block;
+  position: relative;
+  /* margin-right: 30px; */
+}
+.update-profile-photo::after {
+  position: absolute;
+  content: "";
+  /* background-image: url(img/camera.png); */
+  width: 48px;
+  height: 48px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  left: 36%;
+  top: 70%;
+}
