@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import Dropzone from 'react-dropzone';
 
-const AddPlayer = () => {
+const CreateManager = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageObject, setSelectedImageObject] = useState(null);
 
@@ -91,4 +91,4 @@ const AddPlayer = () => {
   );
 };
 
-export default AddPlayer;
+export default CreateManager;

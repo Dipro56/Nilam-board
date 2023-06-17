@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SidebarItem } from './sidebar-item/sidebar-item';
+import { SidebarItem } from './sidebar-item/SidebarItem';
 
 const Sidebar = () => {
   let itemImage = (
@@ -35,6 +35,11 @@ const Sidebar = () => {
           pathName={'create-manager'}
           itemImage={itemImage}
           itemName={'Create Manager'}
+        />
+        <SidebarItem
+          pathName={'player-list'}
+          itemImage={itemImage}
+          itemName={'Player list'}
         />
       </ul>
     </div>
