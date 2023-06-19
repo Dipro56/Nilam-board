@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Pagination from '@/components/utils/pagination/Pagination';
 import Table from '@/components/utils/table/Table';
 
-const PalyerList = ({ data , playerList }) => {
+const PalyerList = ({  playerList }) => {
   console.log('player list data: ' , playerList)
   const itemsPerPage = 10; // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,69 +38,9 @@ export async function getServerSideProps() {
   const playerListResponse = await response.json();
   const playerList = playerListResponse?.data
 
-  const data = [
-    {
-      id:1,
-      name: 'Messi',
-      club: 'Barcelona',
-    },
-    {
-      id: 2,
-      name: 'Ronaldo',
-      club: 'Man Utd',
-    },
-    {
-      id: 3,
-      name: 'Mbappe',
-      club: 'PSG',
-    },
-    {
-      id: 4,
-      name: 'Messi',
-      club: 'Barcelona',
-    },
-    {
-      id: 5,
-      name: 'Ronaldo',
-      club: 'Man Utd',
-    },
-    {
-      id: 6,
-      name: 'Mbappe',
-      club: 'PSG',
-    },
-    {
-      id: 7,
-      name: 'Messi',
-      club: 'Barcelona',
-    },
-    {
-      id:8,
-      name: 'Ronaldo',
-      club: 'Man Utd',
-    },
-    {
-      id: 9,
-      name: 'Mbappe',
-      club: 'PSG',
-    },
-    {
-      name: 'Messi',
-      club: 'Barcelona',
-    },
-    {
-      name: 'Ronaldo',
-      club: 'Man Utd',
-    },
-    {
-      name: 'Mbappe',
-      club: 'PSG',
-    },
-  ];
 
   return {
     props: {
-      data,
       playerList
     },
   };

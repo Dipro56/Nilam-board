@@ -1,8 +1,11 @@
 import Image from 'next/image';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Dropzone from 'react-dropzone';
 import { Menu, Transition } from '@headlessui/react';
 import axios from 'axios';
+import notifications from '@/utils/notification-toast/Notification';
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const AddPlayer = () => {
   const [playerImage, setPlayerImage] = useState(null);
@@ -31,8 +34,6 @@ const AddPlayer = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log('handle submit: ' , playerImage)
-
     if (
       playerName &&
       playerPosition &&
@@ -59,21 +60,13 @@ const AddPlayer = () => {
       axios(config)
         .then((res) => {
           if (res?.status === 200) {
-            alert(res?.data.message)
+            notifications.success(res?.data.message, 'top-center');
           }
         })
         .then((error) => console.error(error));
     } else {
-      alert('Fill every field');
+      notifications.error('Complete every field', 'top-center');
     }
-    console.log(
-      'playerName, playerPosition, playerRating, playerType, playerImage: ',
-      playerName,
-      playerPosition,
-      playerRating,
-      playerType,
-      playerImage
-    );
   };
 
   const radioOption = [
@@ -266,6 +259,7 @@ const AddPlayer = () => {
             Submit
           </button>
         </form>
+         <Toaster />
       </div>
     </main>
   );

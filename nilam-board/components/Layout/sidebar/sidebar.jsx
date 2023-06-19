@@ -27,6 +27,11 @@ const Sidebar = () => {
           itemName={'Dashboard'}
         />
         <SidebarItem
+          pathName={'auction-table'}
+          itemImage={itemImage}
+          itemName={'Auction table'}
+        />
+        <SidebarItem
           pathName={'add-player'}
           itemImage={itemImage}
           itemName={'Add player'}
