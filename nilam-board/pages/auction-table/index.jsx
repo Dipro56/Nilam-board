@@ -1,6 +1,20 @@
+import Modal from '@/components/utils/modal/Modal';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
+
 const Auction = ({ playerList }) => {
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   const [listType, setListType] = useState();
   const handleListType = (event) => {
     setListType(event.target.value);
@@ -30,10 +44,18 @@ const Auction = ({ playerList }) => {
   const handleRandomCall = () => {
     let getRandomNumber = Math.floor(Math.random() * filteredPlayerList.length);
     let selectedRandomPlayer = filteredPlayerList[getRandomNumber];
-    console.log('selectedRandomPlayer: ' , selectedRandomPlayer)
+    console.log('selectedRandomPlayer: ', selectedRandomPlayer);
     setRandomPlayer(selectedRandomPlayer);
     setCounter(5);
   };
+
+  const handleSold = () => {
+    
+  }
+
+  const handleUnsold = () => {
+    
+  }
 
   useEffect(() => {
     let filteredList = playerList?.filter((player) => player.type === listType);
@@ -80,8 +102,47 @@ const Auction = ({ playerList }) => {
           {counter}
         </div>
       ) : (
-        <div className="flex justify-center text-5xl font-bold">
-          {randomPlayer?.name}
+        <div>
+          <div className="flex justify-center text-5xl font-bold my-5">
+            <div>{randomPlayer?.name}</div>
+          </div>
+          <div className="flex justify-center text-3xl font-bold my-3">
+            Position : {randomPlayer?.position}
+          </div>
+          <div className="flex justify-center text-3xl font-bold my-3">
+            Rating : {randomPlayer?.rating}
+          </div>
+
+          <div className="flex justify-center text-3xl font-bold my-5">
+            <Image
+              src={`http://localhost:5000/uploads/${randomPlayer?.image}`}
+              alt="Example Image"
+              width={700}
+              height={700}
+            />
+          </div>
+          {randomPlayer ? (
+            <div className="flex justify-center">
+              <button
+                onClick={openModal}
+                type="submit"
+                className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Sold
+              </button>
+
+              <button
+                onClick={handleRandomCall}
+                type="submit"
+                className="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Unsold
+              </button>
+            </div>
+          ) : (
+            <></>
+            )}
+                  <Modal isOpen={isModalOpen} onClose={closeModal} />
         </div>
       )}
     </main>
