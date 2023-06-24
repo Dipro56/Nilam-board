@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import React from 'react';
 
-const Table = ({ playerList }) => {
-  console.log('table  playerList: ', playerList);
+const Table = ({ itemList }) => {
+  console.log('table  itemList: ', itemList);
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -29,7 +29,7 @@ const Table = ({ playerList }) => {
           </tr>
         </thead>
         <tbody>
-          {playerList.map((item, index) => (
+          {itemList.map((item, index) => (
             <tr
               key={item._id}
               class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -38,7 +38,12 @@ const Table = ({ playerList }) => {
                 scope="row"
                 class="px-1 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-              <Image src={`http://localhost:5000/uploads/${item?.image}`} alt="Example Image" width={150} height={150} />
+                <Image
+                  src={`http://localhost:5000/uploads/${item?.image}`}
+                  alt="Example Image"
+                  width={100}
+                  height={100}
+                />
               </th>
               <th
                 scope="row"
@@ -67,29 +72,6 @@ const Table = ({ playerList }) => {
       </table>
     </div>
 
-    // <div className="overflow-x-auto">
-    //   <table className="min-w-full divide-y divide-gray-200">
-    //     {/* Table headers */}
-    //     <thead className="bg-gray-50">
-    //       <tr>
-    //         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Header 1</th>
-    //         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Header 2</th>
-    //         {/* Add more table headers as needed */}
-    //       </tr>
-    //     </thead>
-
-    //     {/* Table rows */}
-    //     <tbody className="bg-white divide-y divide-gray-200">
-    //       {data.map((item) => (
-    //         <tr key={item.id}>
-    //           {item.name}
-    //           {item.club}
-    //           {/* Use item properties to populate the cell content */}
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table>
-    // </div>
   );
 };
 

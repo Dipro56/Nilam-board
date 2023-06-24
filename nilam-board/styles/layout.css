@@ -1,0 +1,26 @@
+.layout-background-color {
+  background-color: #161819;
+}
+
+.layout-item-color {
+  color: #FFFFFF;
+}
+
+.layout-item-hover-color {
+  background-color: #4c4c4d;
+}
+
+.sidebar {
+  height: 200vh;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 0em;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 246, 246, 0.2);
+  outline: 1px solid slategrey;
+}

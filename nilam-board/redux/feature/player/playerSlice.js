@@ -17,7 +17,7 @@ export const getPlayerList = createAsyncThunk(
   'player/getPlayerList',
   async () => {
     try {
-      const URL = `http://localhost:5000/api/v1`;
+      const URL = `http://localhost:5000/api/v1/player/get-all-player`;
       const response = await axios.get(URL);
       console.log('response: ', response);
       return [...response?.data?.data];

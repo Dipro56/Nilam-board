@@ -6,7 +6,6 @@ import axios from 'axios';
 import notifications from '@/utils/notification-toast/Notification';
 import toast, { Toaster } from 'react-hot-toast';
 
-
 const AddPlayer = () => {
   const [playerImage, setPlayerImage] = useState(null);
   const [selectedImageURL, setSelectedImageURL] = useState(null);
@@ -15,6 +14,13 @@ const AddPlayer = () => {
   const [playerRating, setPlayerRating] = useState();
   const [playerType, setPlayerType] = useState();
   const [playerPosition, setplayerPosition] = useState();
+  const [price, setPrice] = useState('0');
+  const [club, setClub] = useState('Free agent');
+  const [clubOwner, setClubOwner] = useState('No owner');
+
+  //  price: { type: String, required: true },
+  // club: { type: String, required: true },
+  // clubOwner: { type: String, required: true },
 
   const handleDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -39,6 +45,9 @@ const AddPlayer = () => {
       playerPosition &&
       playerRating &&
       playerType &&
+      price &&
+      club &&
+      clubOwner &&
       playerImage
     ) {
       let data = new FormData();
@@ -46,11 +55,14 @@ const AddPlayer = () => {
       data.append('type', playerType);
       data.append('position', playerPosition);
       data.append('rating', playerRating);
+      data.append('price', price);
+      data.append('club', club);
+      data.append('clubOwner', clubOwner);
       data.append('image', playerImage);
 
       let config = {
         method: 'post',
-        url: 'http://localhost:5000/api/v1/create-player',
+        url: 'http://localhost:5000/api/v1/player/create-player',
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -61,6 +73,8 @@ const AddPlayer = () => {
         .then((res) => {
           if (res?.status === 200) {
             notifications.success(res?.data.message, 'top-center');
+            setPlayerType(null)
+            setplayerPosition(null)
           }
         })
         .then((error) => console.error(error));
@@ -259,7 +273,7 @@ const AddPlayer = () => {
             Submit
           </button>
         </form>
-         <Toaster />
+        <Toaster />
       </div>
     </main>
   );

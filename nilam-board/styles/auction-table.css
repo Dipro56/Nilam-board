@@ -1,0 +1,16 @@
+.random-player-info-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color:azure
+}
+
+.auction-board {
+  /* background-color: rgba(148, 152, 187, 0.564); */
+}
+
+.play-image-card-alignment {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
