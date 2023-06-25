@@ -136,7 +136,10 @@ const Auction = ({ playerList }) => {
   const handleUnsold = () => {};
 
   useEffect(() => {
-    let filteredList = playerList?.filter((player) => player.type === listType);
+    let filteredList = playerList?.filter(
+      (player) => player.type === listType && player.club === 'Free agent'
+    );
+    console.log('filteredList: ' , filteredList)
     setFilteredPlayerList(filteredList);
   }, [listType]);
 
@@ -180,104 +183,109 @@ const Auction = ({ playerList }) => {
           {counter}
         </div>
       ) : (
-        <div className="play-image-card-alignment mt-5">
+        <div className="play-image-card-alignment flex mt-5">
           {randomPlayer ? (
-            <div className="text-3xl font-bold my-5">
+            <div className="text-3xl font-bold my-5 flex justify-center ">
               <Image
                 src={`http://localhost:5000/uploads/${randomPlayer?.image}`}
                 alt="Example Image"
-                width={700}
+                width={750}
                 height={100}
               />
             </div>
           ) : (
             <div className="text-3xl font-bold my-5"></div>
           )}
-          <div className="w-full max-w-xl max-h-full mx-5 p-5 shadow-xl bg-slate-50 border-black">
-            <div className="text-2xl font-semibold text-gray-900 dark:text-white">
-              <div>{randomPlayer?.name}</div>
-            </div>
-            <div className="text-lg font-semibold my-2">
-              Position : {randomPlayer?.position}
-            </div>
-            <div className="text-lg font-semibold my-2 ">
-              Rating : {randomPlayer?.rating}
-            </div>
 
-            <div className="text-lg font-bold my-2">
-              Price
-              <input
-                type="number"
-                className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                placeholder="Price"
-                onChange={(event) => {
-                  setPlayerPrice(event.target.value);
-                }}
-                required
-              />
-            </div>
-            <div className="mt-4 mb-2 ">
-              <Menu as="div" className="relative inline-block text-left">
-                <div>
-                  <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  ">
-                    {playerPosition ? playerPosition : 'Select manager'}
-                    <svg
-                      class="w-4 h-4 ml-2"
-                      aria-hidden="true"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 9l-7 7-7-7"
-                      ></path>
-                    </svg>
-                  </Menu.Button>
-                </div>
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <Menu.Items
-                    className="block px-4 py-2 bg-white dark:hover:bg-gray-600 dark:hover:text-white"
-                    style={{ zIndex: '50' }}
+            {randomPlayer && (
+              <div className='flex justify-center'>
+                 <div className="w-full max-w-xl max-h-full mx-5 p-5 shadow-xl bg-slate-50 border-black">
+              <div className="text-2xl font-semibold text-gray-900 dark:text-white">
+                <div>{randomPlayer?.name}</div>
+              </div>
+              <div className="text-lg font-semibold my-2">
+                Position : {randomPlayer?.position}
+              </div>
+              <div className="text-lg font-semibold my-2 ">
+                Rating : {randomPlayer?.rating}
+              </div>
+
+              <div className="text-lg font-bold my-2">
+                Price
+                <input
+                  type="number"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                  placeholder="Price"
+                  onChange={(event) => {
+                    setPlayerPrice(event.target.value);
+                  }}
+                  required
+                />
+              </div>
+              <div className="mt-4 mb-2 ">
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  ">
+                      {playerPosition ? playerPosition : 'Select manager'}
+                      <svg
+                        class="w-4 h-4 ml-2"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"
+                        ></path>
+                      </svg>
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
                   >
-                    {managerOption?.map((option) => (
-                      <Menu.Item key={option.id}>
-                        {({ active }) => (
-                          <button
-                            className={`${
-                              active
-                                ? 'bg-blue-500 text-white'
-                                : 'text-gray-900'
-                            } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                            onClick={() => {
-                              handleSelectManager(option.value);
-                            }}
-                          >
-                            {option.label}
-                          </button>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </Menu.Items>
-                </Transition>
-              </Menu>
+                    <Menu.Items
+                      className="block px-4 py-2 bg-white dark:hover:bg-gray-600 dark:hover:text-white"
+                      style={{ zIndex: '50' }}
+                    >
+                      {managerOption?.map((option) => (
+                        <Menu.Item key={option.id}>
+                          {({ active }) => (
+                            <button
+                              className={`${
+                                active
+                                  ? 'bg-blue-500 text-white'
+                                  : 'text-gray-900'
+                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                              onClick={() => {
+                                handleSelectManager(option.value);
+                              }}
+                            >
+                              {option.label}
+                            </button>
+                          )}
+                        </Menu.Item>
+                      ))}
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+
+              <div className="text-lg font-semibold ">Manager : {manager}</div>
+
+              <div className="text-lg font-semibold ">Club : {clubToSell}</div>
             </div>
-
-            <div className="text-lg font-semibold ">Manager : {manager}</div>
-
-            <div className="text-lg font-semibold ">Club : {clubToSell}</div>
-          </div>
+              </div>
+          )}
         </div>
       )}
       {randomPlayer && counter === 0 ? (
