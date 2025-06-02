@@ -1,25 +1,26 @@
 // pages/TablePage.js
-import { Fragment, useEffect, useState } from 'react';
-import Pagination from '@/components/utils/pagination/Pagination';
-import Table from '@/components/utils/table/Table';
+import { Fragment, useEffect, useState } from "react";
+import Pagination from "@/components/utils/pagination/Pagination";
+import Table from "@/components/utils/table/Table";
 import {
   getAllPlayers,
   getPlayerList,
   getPlayerListLoadingStatus,
-} from '@/redux/feature/player/playerSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { Menu, Transition } from '@headlessui/react';
+} from "@/redux/feature/player/playerSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Menu, Transition } from "@headlessui/react";
+import { baseUrl } from "@/utils/config";
 
 const PalyerList = ({ playerList }) => {
-  console.log('player list data: ', playerList);
+  console.log("player list data: ", playerList);
   const itemsPerPage = 20; // Number of items to display per page
   const [currentPage, setCurrentPage] = useState(1);
   const [playerPosition, setplayerPosition] = useState();
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [searchResultList, setSearchResultList] = useState();
 
   const allPlayerList = useSelector(getAllPlayers);
-  console.log('allPlayerList: ', allPlayerList);
+  console.log("allPlayerList: ", allPlayerList);
 
   // Calculate the range of items to display based on the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -36,8 +37,8 @@ const PalyerList = ({ playerList }) => {
   const loadingState = useSelector(getPlayerListLoadingStatus);
 
   useEffect(() => {
-    console.log('loadingState from use effect:');
-    if (loadingState === 'idle') {
+    console.log("loadingState from use effect:");
+    if (loadingState === "idle") {
       dispatch(getPlayerList());
     }
   }, []);
@@ -47,21 +48,21 @@ const PalyerList = ({ playerList }) => {
   };
 
   const dropdownOptions = [
-    { value: 'GK', label: 'GK' },
-    { value: 'CB', label: 'CB' },
-    { value: 'LB', label: 'LB' },
-    { value: 'RB', label: 'RB' },
-    { value: 'LWB', label: 'LWB' },
-    { value: 'RWB', label: 'RWB' },
-    { value: 'CDM', label: 'CDM' },
-    { value: 'CM', label: 'CM' },
-    { value: 'LM', label: 'LM' },
-    { value: 'RM', label: 'RM' },
-    { value: 'CAM', label: 'CAM' },
-    { value: 'LW', label: 'LW' },
-    { value: 'RW', label: 'RW' },
-    { value: 'CF', label: 'CF' },
-    { value: 'ST', label: 'ST' },
+    { value: "GK", label: "GK" },
+    { value: "CB", label: "CB" },
+    { value: "LB", label: "LB" },
+    { value: "RB", label: "RB" },
+    { value: "LWB", label: "LWB" },
+    { value: "RWB", label: "RWB" },
+    { value: "CDM", label: "CDM" },
+    { value: "CM", label: "CM" },
+    { value: "LM", label: "LM" },
+    { value: "RM", label: "RM" },
+    { value: "CAM", label: "CAM" },
+    { value: "LW", label: "LW" },
+    { value: "RW", label: "RW" },
+    { value: "CF", label: "CF" },
+    { value: "ST", label: "ST" },
   ];
 
   useEffect(() => {
@@ -78,7 +79,7 @@ const PalyerList = ({ playerList }) => {
     } else {
       setSearchResultList();
     }
-  }, [searchValue , playerPosition]);
+  }, [searchValue, playerPosition]);
 
   return (
     <div>
@@ -88,8 +89,8 @@ const PalyerList = ({ playerList }) => {
             <button>
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
-                    {playerPosition ? playerPosition : 'Type'}
+                  <Menu.Button className="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-l-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100  ">
+                    {playerPosition ? playerPosition : "Type"}
                     <svg
                       class="w-4 h-4 ml-2"
                       aria-hidden="true"
@@ -117,8 +118,8 @@ const PalyerList = ({ playerList }) => {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items
-                    className="block px-4 py-2 bg-white dark:hover:bg-gray-600 dark:hover:text-white"
-                    style={{ zIndex: '50' }}
+                    className="block px-4 py-2 bg-white  "
+                    style={{ zIndex: "50" }}
                   >
                     {dropdownOptions.map((option) => (
                       <Menu.Item key={option.value}>
@@ -126,8 +127,8 @@ const PalyerList = ({ playerList }) => {
                           <button
                             className={`${
                               active
-                                ? 'bg-blue-500 text-white'
-                                : 'text-gray-900'
+                                ? "bg-blue-500 text-white"
+                                : "text-gray-900"
                             } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                             onClick={() =>
                               handleSelectplayerPosition(option.value)
@@ -147,7 +148,7 @@ const PalyerList = ({ playerList }) => {
               <input
                 type="search"
                 id="search-dropdown"
-                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500   "
                 placeholder="Search by name or filter by type"
                 onChange={(event) => {
                   setSearchValue(event.target.value);
@@ -155,9 +156,9 @@ const PalyerList = ({ playerList }) => {
                 required
               />
               <button
-                className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
                 onClick={() => {
-                  console.log('Submit')
+                  console.log("Submit");
                 }}
               >
                 <svg
@@ -183,7 +184,7 @@ const PalyerList = ({ playerList }) => {
         {searchValue && (
           <h5 className="text-xl my-5">
             <span className="font-bold">{searchResultList?.length}&nbsp; </span>
-            Search result found for{' '}
+            Search result found for{" "}
             <span className="font-bold">{searchValue}</span>
           </h5>
         )}
@@ -192,7 +193,7 @@ const PalyerList = ({ playerList }) => {
             <h5 className="text-2xl font-bold my-5 text-center">
               Searched players
             </h5>
-            <Table type={'searched-list'} itemList={searchResultList} />
+            <Table type={"searched-list"} itemList={searchResultList} />
           </>
         )}
       </div>
@@ -219,10 +220,8 @@ const PalyerList = ({ playerList }) => {
 
 export async function getServerSideProps() {
   // Fetch data from your data source (e.g., an API)
-  const response = await fetch(
-    'http://localhost:5000/api/v1/player/get-all-player'
-  );
-  console.log('response: ', response);
+  const response = await fetch(`${baseUrl}/player/get-all-player`);
+  console.log("response: ", response);
   const playerListResponse = await response.json();
   const playerList = playerListResponse?.data;
 

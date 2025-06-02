@@ -50,7 +50,7 @@ const Sidebar = () => {
   let itemImage = (
     <svg
       aria-hidden="true"
-      class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+      class="w-6 h-6 text-gray-500 transition duration-75  group-hover:text-gray-900 "
       fill="currentColor"
       viewBox="0 0 20 20"
       xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,7 @@ const Sidebar = () => {
         <div className="mt-4 mb-4 mx-2">
           <Menu as="div" className="relative inline-block text-left">
             <div>
-              <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  ">
+              <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center   ">
                 {playerPosition ? playerPosition : 'See Manger Details'}
                 <svg
                   class="w-4 h-4 ml-2"
@@ -131,7 +131,7 @@ const Sidebar = () => {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items
-                className="block px-4 py-2 bg-white dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 bg-white  "
                 style={{ zIndex: '50' }}
               >
                 {managerOption?.map((option) => (

@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { baseUrl } from "@/utils/config";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // import { fetchCount } from './counterAPI';
-import axios from 'axios';
+import axios from "axios";
 
 // const initialState = {
 //   value: 0,
@@ -9,17 +10,17 @@ import axios from 'axios';
 
 const initialState = {
   playerList: [],
-  status: 'idle',
+  status: "idle",
   error: null,
 };
 
 export const getPlayerList = createAsyncThunk(
-  'player/getPlayerList',
+  "player/getPlayerList",
   async () => {
     try {
-      const URL = `http://localhost:5000/api/v1/player/get-all-player`;
+      const URL = `${baseUrl}/player/get-all-player`;
       const response = await axios.get(URL);
-      console.log('response: ', response);
+      console.log("response: ", response);
       return [...response?.data?.data];
     } catch (error) {
       return error.message;
@@ -28,7 +29,7 @@ export const getPlayerList = createAsyncThunk(
 );
 
 export const incrementAsync = createAsyncThunk(
-  'counter/fetchCount',
+  "counter/fetchCount",
   async (amount) => {
     const response = await fetchCount(amount);
     return response.data;
@@ -63,7 +64,7 @@ export const incrementAsync = createAsyncThunk(
 // });
 
 export const playerSlice = createSlice({
-  name: 'player',
+  name: "player",
   initialState,
   reducers: {
     // increment: (state) => {
@@ -80,17 +81,17 @@ export const playerSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getPlayerList.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(getPlayerList.fulfilled, (state, action) => {
-        console.log('action: ', action);
-        console.log('extra reducer action.payload', action.payload);
-        state.status = 'succeeded';
+        console.log("action: ", action);
+        console.log("extra reducer action.payload", action.payload);
+        state.status = "succeeded";
         state.playerList = action.payload;
       })
 
       .addCase(getPlayerList?.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.error.message;
       });
   },

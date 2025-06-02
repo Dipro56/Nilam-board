@@ -11,7 +11,7 @@ const Dropdown = ({ options }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  ">
+        <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center   ">
           {selectedOption ? selectedOption : 'Select an option'}
           <svg
             class="w-4 h-4 ml-2"
@@ -40,7 +40,7 @@ const Dropdown = ({ options }) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items
-          className="block px-4 py-2 bg-white dark:hover:bg-gray-600 dark:hover:text-white"
+          className="block px-4 py-2 bg-white  "
           style={{ zIndex: '50' }}
         >
           {options.map((option) => (

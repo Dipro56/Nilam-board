@@ -5,8 +5,8 @@ const Table = ({ itemList }) => {
   console.log('table  itemList: ', itemList);
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <table class="w-full text-sm text-left text-gray-500 ">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
           <tr>
             <th scope="col" class="px-6 py-3">
               Image
@@ -32,11 +32,11 @@ const Table = ({ itemList }) => {
           {itemList.map((item, index) => (
             <tr
               key={item._id}
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              class="bg-white border-b  "
             >
               <th
                 scope="row"
-                class="px-1 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                class="px-1 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
                 <Image
                   src={`http://localhost:5000/uploads/${item?.image}`}
@@ -47,7 +47,7 @@ const Table = ({ itemList }) => {
               </th>
               <th
                 scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
               >
                 {item?.name}
               </th>
@@ -57,7 +57,7 @@ const Table = ({ itemList }) => {
               <td class="px-6 py-4">
                 <a
                   href="#"
-                  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  class="font-medium text-blue-600  hover:underline"
                 >
                   Edit
                 </a>

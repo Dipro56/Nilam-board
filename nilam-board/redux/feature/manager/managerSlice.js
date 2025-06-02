@@ -1,19 +1,20 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { baseUrl } from "@/utils/config";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   managerList: [],
-  status: 'idle',
+  status: "idle",
   error: null,
 };
 
 export const getManagerList = createAsyncThunk(
-  'manager/getManagerList',
+  "manager/getManagerList",
   async () => {
     try {
-      const URL = `http://localhost:5000/api/v1/manager/get-all-manager`;
+      const URL = `${baseUrl}/manager/get-all-manager`;
       const response = await axios.get(URL);
-      console.log('response: ', response);
+      console.log("response: ", response);
       return [...response?.data?.data];
     } catch (error) {
       return error.message;
@@ -22,24 +23,24 @@ export const getManagerList = createAsyncThunk(
 );
 
 export const managerSlice = createSlice({
-  name: 'manager',
+  name: "manager",
   initialState,
   reducers: {},
 
   extraReducers: (builder) => {
     builder
       .addCase(getManagerList.pending, (state) => {
-        state.status = 'loading';
+        state.status = "loading";
       })
       .addCase(getManagerList.fulfilled, (state, action) => {
-        console.log('action: ', action);
-        console.log('extra reducer action.payload', action.payload);
-        state.status = 'succeeded';
+        console.log("action: ", action);
+        console.log("extra reducer action.payload", action.payload);
+        state.status = "succeeded";
         state.managerList = action.payload;
       })
 
       .addCase(getManagerList?.rejected, (state, action) => {
-        state.status = 'failed';
+        state.status = "failed";
         state.error = action.error.message;
       });
   },

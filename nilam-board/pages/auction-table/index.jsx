@@ -2,12 +2,13 @@ import {
   getAllManager,
   getManagerList,
   getManagerListLoadingStatus,
-} from '@/redux/feature/manager/managerSlice';
-import { Menu, Transition } from '@headlessui/react';
-import { closeModal, openModal } from '@/redux/feature/modal/modalSlice';
-import Image from 'next/image';
-import React, { Fragment, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+} from "@/redux/feature/manager/managerSlice";
+import { Menu, Transition } from "@headlessui/react";
+import { closeModal, openModal } from "@/redux/feature/modal/modalSlice";
+import Image from "next/image";
+import React, { Fragment, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { baseUrl } from "@/utils/config";
 
 const Auction = ({ playerList }) => {
   const [playerPosition, setplayerPosition] = useState();
@@ -24,7 +25,7 @@ const Auction = ({ playerList }) => {
   const ableSoldButton =
     Boolean(manager) && Boolean(clubToSell) && Boolean(playerPrice);
 
-  console.log('ableSoldButton: ', ableSoldButton);
+  console.log("ableSoldButton: ", ableSoldButton);
 
   //dropdownOptions
   let managerOption = [];
@@ -55,13 +56,13 @@ const Auction = ({ playerList }) => {
   };
 
   useEffect(() => {
-    if (loadingState === 'idle') {
+    if (loadingState === "idle") {
       dispatch(getManagerList());
     }
   }, []);
 
   const handleOpenModal = () => {
-    console.log('handleOpenModal');
+    console.log("handleOpenModal");
     let playerSellingInfo = {
       managerId,
       playerPrice,
@@ -70,16 +71,16 @@ const Auction = ({ playerList }) => {
       totalMoney,
     };
 
-    console.log('randomPlayer: ', randomPlayer);
-    console.log('filteredPlayerList: length', filteredPlayerList?.length);
-    console.log('filteredPlayerList: ', filteredPlayerList);
+    console.log("randomPlayer: ", randomPlayer);
+    console.log("filteredPlayerList: length", filteredPlayerList?.length);
+    console.log("filteredPlayerList: ", filteredPlayerList);
     let removeSelectedPlayer = filteredPlayerList.filter(
       (item) => item?.name !== randomPlayer?.name
     );
     setFilteredPlayerList(removeSelectedPlayer);
     dispatch(
       openModal({
-        modalType: 'PlayerSoldModal',
+        modalType: "PlayerSoldModal",
         modalProps: { randomPlayer, playerSellingInfo },
       })
     );
@@ -111,18 +112,18 @@ const Auction = ({ playerList }) => {
   }, [counter]);
 
   const radioOption = [
-    { value: 'GK', label: ' GK ' },
-    { value: 'DEF', label: ' DEF ' },
-    { value: 'WB', label: ' WB ' },
-    { value: 'MID', label: ' MID ' },
-    { value: 'FWD', label: ' FWD ' },
+    { value: "GK", label: " GK " },
+    { value: "DEF", label: " DEF " },
+    { value: "WB", label: " WB " },
+    { value: "MID", label: " MID " },
+    { value: "FWD", label: " FWD " },
   ];
 
   const handleRandomCall = () => {
     let getRandomNumber = Math.floor(Math.random() * filteredPlayerList.length);
-    console.log('getRandomNumber: ', getRandomNumber);
+    console.log("getRandomNumber: ", getRandomNumber);
     let selectedRandomPlayer = filteredPlayerList[getRandomNumber];
-    console.log('selectedRandomPlayer: ', selectedRandomPlayer);
+    console.log("selectedRandomPlayer: ", selectedRandomPlayer);
     setRandomPlayer(selectedRandomPlayer);
     setClubToSell();
     setManager();
@@ -137,9 +138,9 @@ const Auction = ({ playerList }) => {
 
   useEffect(() => {
     let filteredList = playerList?.filter(
-      (player) => player.type === listType && player.club === 'Free agent'
+      (player) => player.type === listType && player.club === "Free agent"
     );
-    console.log('filteredList: ' , filteredList)
+    console.log("filteredList: ", filteredList);
     setFilteredPlayerList(filteredList);
   }, [listType]);
 
@@ -163,7 +164,7 @@ const Auction = ({ playerList }) => {
         ))}
         {/* <button
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center "
         >
           Filter
         </button> */}
@@ -173,7 +174,7 @@ const Auction = ({ playerList }) => {
         <button
           onClick={handleRandomCall}
           type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center"
         >
           Call
         </button>
@@ -187,7 +188,7 @@ const Auction = ({ playerList }) => {
           {randomPlayer ? (
             <div className="text-3xl font-bold my-5 flex justify-center ">
               <Image
-                src={`http://localhost:5000/uploads/${randomPlayer?.image}`}
+                src={`${baseUrl}/uploads/${randomPlayer?.image}`}
                 alt="Example Image"
                 width={750}
                 height={100}
@@ -197,94 +198,98 @@ const Auction = ({ playerList }) => {
             <div className="text-3xl font-bold my-5"></div>
           )}
 
-            {randomPlayer && (
-              <div className='flex justify-center'>
-                 <div className="w-full max-w-xl max-h-full mx-5 p-5 shadow-xl bg-slate-50 border-black">
-              <div className="text-2xl font-semibold text-gray-900 dark:text-white">
-                <div>{randomPlayer?.name}</div>
-              </div>
-              <div className="text-lg font-semibold my-2">
-                Position : {randomPlayer?.position}
-              </div>
-              <div className="text-lg font-semibold my-2 ">
-                Rating : {randomPlayer?.rating}
-              </div>
+          {randomPlayer && (
+            <div className="flex justify-center">
+              <div className="w-full max-w-xl max-h-full mx-5 p-5 shadow-xl bg-slate-50 border-black">
+                <div className="text-2xl font-semibold text-gray-900 ">
+                  <div>{randomPlayer?.name}</div>
+                </div>
+                <div className="text-lg font-semibold my-2">
+                  Position : {randomPlayer?.position}
+                </div>
+                <div className="text-lg font-semibold my-2 ">
+                  Rating : {randomPlayer?.rating}
+                </div>
 
-              <div className="text-lg font-bold my-2">
-                Price
-                <input
-                  type="number"
-                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                  placeholder="Price"
-                  onChange={(event) => {
-                    setPlayerPrice(event.target.value);
-                  }}
-                  required
-                />
-              </div>
-              <div className="mt-4 mb-2 ">
-                <Menu as="div" className="relative inline-block text-left">
-                  <div>
-                    <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  ">
-                      {playerPosition ? playerPosition : 'Select manager'}
-                      <svg
-                        class="w-4 h-4 ml-2"
-                        aria-hidden="true"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M19 9l-7 7-7-7"
-                        ></path>
-                      </svg>
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items
-                      className="block px-4 py-2 bg-white dark:hover:bg-gray-600 dark:hover:text-white"
-                      style={{ zIndex: '50' }}
+                <div className="text-lg font-bold my-2">
+                  Price
+                  <input
+                    type="number"
+                    className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5   "
+                    placeholder="Price"
+                    onChange={(event) => {
+                      setPlayerPrice(event.target.value);
+                    }}
+                    required
+                  />
+                </div>
+                <div className="mt-4 mb-2 ">
+                  <Menu as="div" className="relative inline-block text-left">
+                    <div>
+                      <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center   ">
+                        {playerPosition ? playerPosition : "Select manager"}
+                        <svg
+                          class="w-4 h-4 ml-2"
+                          aria-hidden="true"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 9l-7 7-7-7"
+                          ></path>
+                        </svg>
+                      </Menu.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
                     >
-                      {managerOption?.map((option) => (
-                        <Menu.Item key={option.id}>
-                          {({ active }) => (
-                            <button
-                              className={`${
-                                active
-                                  ? 'bg-blue-500 text-white'
-                                  : 'text-gray-900'
-                              } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                              onClick={() => {
-                                handleSelectManager(option.value);
-                              }}
-                            >
-                              {option.label}
-                            </button>
-                          )}
-                        </Menu.Item>
-                      ))}
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
+                      <Menu.Items
+                        className="block px-4 py-2 bg-white"
+                        style={{ zIndex: "50" }}
+                      >
+                        {managerOption?.map((option) => (
+                          <Menu.Item key={option.id}>
+                            {({ active }) => (
+                              <button
+                                className={`${
+                                  active
+                                    ? "bg-blue-500 text-white"
+                                    : "text-gray-900"
+                                } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                                onClick={() => {
+                                  handleSelectManager(option.value);
+                                }}
+                              >
+                                {option.label}
+                              </button>
+                            )}
+                          </Menu.Item>
+                        ))}
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                </div>
+
+                <div className="text-lg font-semibold ">
+                  Manager : {manager}
+                </div>
+
+                <div className="text-lg font-semibold ">
+                  Club : {clubToSell}
+                </div>
               </div>
-
-              <div className="text-lg font-semibold ">Manager : {manager}</div>
-
-              <div className="text-lg font-semibold ">Club : {clubToSell}</div>
             </div>
-              </div>
           )}
         </div>
       )}
@@ -293,7 +298,7 @@ const Auction = ({ playerList }) => {
           <button
             onClick={handleOpenModal}
             type="submit"
-            className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center "
             disabled={!ableSoldButton}
           >
             Sold
@@ -302,7 +307,7 @@ const Auction = ({ playerList }) => {
           <button
             onClick={handleRandomCall}
             type="submit"
-            className="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-5 px-6 py-2.5 text-center"
           >
             Unsold
           </button>
@@ -318,10 +323,8 @@ export default Auction;
 
 export async function getServerSideProps() {
   // Fetch data from your data source (e.g., an API)
-  const response = await fetch(
-    'http://localhost:5000/api/v1/player/get-all-player'
-  );
-  console.log('response: ', response);
+  const response = await fetch(`${baseUrl}/player/get-all-player`);
+  console.log("response: ", response);
   const playerListResponse = await response.json();
   const playerList = playerListResponse?.data;
 

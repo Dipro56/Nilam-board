@@ -5,7 +5,7 @@ const SearchedTable = ({ itemList }) => {
 
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <SearchedTable class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <SearchedTable class="w-full text-sm text-left text-gray-500 ">
         <thead class="text-xs uppercase bg-gray-700 text-gray-400">
           <tr>
             <th scope="col" class="px-6 py-3">
@@ -32,11 +32,11 @@ const SearchedTable = ({ itemList }) => {
           {itemList?.map((item, index) => (
             <tr
               key={item._id}
-              class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+              class="bg-white border-b "
             >
               <th
                 scope="row"
-                class="px-1 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                class="px-1 py-4 font-medium text-gray-900 whitespace-nowrap "
               >
                 <Image
                   src={`http://localhost:5000/uploads/${item?.image}`}
@@ -47,7 +47,7 @@ const SearchedTable = ({ itemList }) => {
               </th>
               <th
                 scope="row"
-                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap "
               >
                 {item?.name}
               </th>
@@ -57,7 +57,7 @@ const SearchedTable = ({ itemList }) => {
               <td class="px-6 py-4">
                 <a
                   href="#"
-                  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  class="font-medium text-blue-600  hover:underline"
                 >
                   Edit
                 </a>
