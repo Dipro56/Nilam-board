@@ -1,18 +1,19 @@
 import { useState } from "react";
 import Navbar from "./navbar/Navbar";
 import Sidebar from "./sidebar/Sidebar";
-
+import { useRouter } from "next/router";
+import { FaList } from "react-icons/fa6";
 
 const Layout = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  let router = useRouter();
+
+  const pathname = router.pathname;
+
+  console.log("pathname", pathname);
 
   return (
-    <div className="flex">
-      {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'block' : 'hidden'} lg:block`}>
-        <Sidebar />
-      </div>
-      
+    <div>
+      {pathname != "/login" ? <Sidebar /> : <></>}
 
       {/* Content */}
       <div className="flex-1">
@@ -27,10 +28,3 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
-
-
-
-
-
-
-

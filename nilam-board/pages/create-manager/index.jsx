@@ -5,6 +5,7 @@ import notifications from "@/utils/notification-toast/Notification";
 import { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { baseUrl } from "@/utils/config";
+import Cookies from "js-cookie";
 
 const CreateManager = () => {
   const [managerImage, setManagerImage] = useState(null);
@@ -31,11 +32,16 @@ const CreateManager = () => {
       data.append("totalSpent", totalSpent);
       data.append("image", managerImage);
 
+      const accessToken = Cookies.get("accessToken");
+
       let config = {
         method: "post",
         url: `${baseUrl}/manager/create-manager`,
         headers: {
           "Content-Type": "multipart/form-data",
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
         data: data,
       };
