@@ -1,4 +1,3 @@
-import Layout from '@/components/layout/layout';
 import { store } from '@/redux/store/store';
 import '@/styles/globals.css';
 import '../styles/layout.css';
@@ -7,6 +6,7 @@ import '../styles/auction-table.css';
 
 import { Provider } from 'react-redux';
 import ModalController from '@/components/utils/modal/ModalController';
+import Layout from '../components/layout/layout';
 
 export default function App({ Component, pageProps }) {
   return (
