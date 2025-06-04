@@ -19,7 +19,7 @@ const Sidebar = ({ sidebarStatus, handleSidebar }) => {
 
   useEffect(() => {
     dispatch(getUserProfile());
-  }, []);
+  }, [dispatch]);
 
   return (
     <main className="all-page-width">

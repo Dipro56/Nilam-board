@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Navbar from "./navbar/Navbar";
 import Sidebar from "./sidebar/Sidebar";
 import { useRouter } from "next/router";
 import { FaList } from "react-icons/fa6";
+import Navbar from "./navbar/navbar";
 
 const Layout = ({ children }) => {
   let router = useRouter();

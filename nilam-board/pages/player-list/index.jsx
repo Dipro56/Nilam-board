@@ -41,7 +41,7 @@ const PalyerList = ({ playerList }) => {
     if (loadingState === "idle") {
       dispatch(getPlayerList());
     }
-  }, []);
+  }, [dispatch, loadingState]);
 
   const handleSelectplayerPosition = (value) => {
     setplayerPosition(value);
@@ -79,7 +79,7 @@ const PalyerList = ({ playerList }) => {
     } else {
       setSearchResultList();
     }
-  }, [searchValue, playerPosition]);
+  }, [searchValue, playerPosition, playerList]);
 
   return (
     <div>

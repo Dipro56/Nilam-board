@@ -59,7 +59,7 @@ const Auction = ({ playerList }) => {
     if (loadingState === "idle") {
       dispatch(getManagerList());
     }
-  }, []);
+  }, [dispatch, loadingState]);
 
   const handleOpenModal = () => {
     console.log("handleOpenModal");
@@ -142,7 +142,7 @@ const Auction = ({ playerList }) => {
     );
     console.log("filteredList: ", filteredList);
     setFilteredPlayerList(filteredList);
-  }, [listType]);
+  }, [listType, playerList]);
 
   return (
     <main className="p-6 auction-board ">

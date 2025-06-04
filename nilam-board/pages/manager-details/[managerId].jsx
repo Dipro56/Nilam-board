@@ -40,7 +40,7 @@ const ManagerDetails = ({ managerDetails, playerList }) => {
     let clubPlayers = playerList?.filter((player) => player.club === club);
     console.log('clubPlayers: ', clubPlayers);
     setClubPlayerList(clubPlayers);
-  }, [managerDetails]);
+  }, [managerDetails, playerList]);
 
 
   return (
