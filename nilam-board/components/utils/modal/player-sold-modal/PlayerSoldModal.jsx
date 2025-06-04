@@ -108,7 +108,7 @@ function PlayerSoldModal() {
 
             <div className="flex justify-center text-3xl font-bold my-5">
               <Image
-                src={`http://localhost:5000/uploads/${soldPlayer?.randomPlayer?.image}`}
+                src={soldPlayer?.randomPlayer?.image}
                 alt="Example Image"
                 width={300}
                 height={300}

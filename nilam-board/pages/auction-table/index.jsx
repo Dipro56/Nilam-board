@@ -188,10 +188,10 @@ const Auction = ({ playerList }) => {
           {randomPlayer ? (
             <div className="text-3xl font-bold my-5 flex justify-center ">
               <Image
-                src={`${baseUrl}/uploads/${randomPlayer?.image}`}
+                src={randomPlayer?.image}
                 alt="Example Image"
-                width={750}
-                height={100}
+                width={500}
+                height={200}
               />
             </div>
           ) : (

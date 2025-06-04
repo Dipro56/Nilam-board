@@ -32,16 +32,13 @@ const ManagerList = ({ managerList }) => {
             </thead>
             <tbody>
               {managerList.map((item, index) => (
-                <tr
-                  key={item._id}
-                  class="bg-white border-b  "
-                >
+                <tr key={item._id} class="bg-white border-b  ">
                   <th
                     scope="row"
                     class="px-1 py-4 font-medium text-gray-900 whitespace-nowrap "
                   >
                     <Image
-                      src={`http://localhost:5000/uploads/${item?.image}`}
+                      src={`${item?.image}`}
                       alt="Example Image"
                       width={50}
                       height={50}

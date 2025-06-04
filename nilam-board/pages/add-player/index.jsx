@@ -1,11 +1,12 @@
-import Image from 'next/image';
-import React, { Fragment, useEffect, useState } from 'react';
-import Dropzone from 'react-dropzone';
-import { Menu, Transition } from '@headlessui/react';
-import axios from 'axios';
-import notifications from '@/utils/notification-toast/Notification';
-import toast, { Toaster } from 'react-hot-toast';
-import { baseUrl } from '@/utils/config';
+import Image from "next/image";
+import React, { Fragment, useEffect, useState } from "react";
+import Dropzone from "react-dropzone";
+import { Menu, Transition } from "@headlessui/react";
+import axios from "axios";
+import notifications from "@/utils/notification-toast/Notification";
+import toast, { Toaster } from "react-hot-toast";
+import { baseUrl } from "@/utils/config";
+import Cookies from "js-cookie";
 
 const AddPlayer = () => {
   const [playerImage, setPlayerImage] = useState(null);
@@ -15,9 +16,9 @@ const AddPlayer = () => {
   const [playerRating, setPlayerRating] = useState();
   const [playerType, setPlayerType] = useState();
   const [playerPosition, setplayerPosition] = useState();
-  const [price, setPrice] = useState('0');
-  const [club, setClub] = useState('Free agent');
-  const [clubOwner, setClubOwner] = useState('No owner');
+  const [price, setPrice] = useState("0");
+  const [club, setClub] = useState("Free agent");
+  const [clubOwner, setClubOwner] = useState("No owner");
 
   //  price: { type: String, required: true },
   // club: { type: String, required: true },
@@ -25,7 +26,7 @@ const AddPlayer = () => {
 
   const handleDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
-    console.log('handle drop file: ', file?.path);
+    console.log("handle drop file: ", file?.path);
     setSelectedImageURL(URL.createObjectURL(file));
     setPlayerImage(file);
   };
@@ -52,20 +53,25 @@ const AddPlayer = () => {
       playerImage
     ) {
       let data = new FormData();
-      data.append('name', playerName);
-      data.append('type', playerType);
-      data.append('position', playerPosition);
-      data.append('rating', playerRating);
-      data.append('price', price);
-      data.append('club', club);
-      data.append('clubOwner', clubOwner);
-      data.append('image', playerImage);
+      data.append("name", playerName);
+      data.append("type", playerType);
+      data.append("position", playerPosition);
+      data.append("rating", playerRating);
+      data.append("price", price);
+      data.append("club", club);
+      data.append("clubOwner", clubOwner);
+      data.append("image", playerImage);
+
+      const accessToken = Cookies.get("accessToken");
 
       let config = {
-        method: 'post',
+        method: "post",
         url: `${baseUrl}/player/create-player`,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
         },
         data: data,
       };
@@ -73,41 +79,41 @@ const AddPlayer = () => {
       axios(config)
         .then((res) => {
           if (res?.status === 200) {
-            notifications.success(res?.data.message, 'top-center');
-            setPlayerType(null)
-            setplayerPosition(null)
+            notifications.success(res?.data.message, "top-center");
+            setPlayerType(null);
+            setplayerPosition(null);
           }
         })
         .then((error) => console.error(error));
     } else {
-      notifications.error('Complete every field', 'top-center');
+      notifications.error("Complete every field", "top-center");
     }
   };
 
   const radioOption = [
-    { value: 'GK', label: ' GK ' },
-    { value: 'DEF', label: ' DEF ' },
-    { value: 'WB', label: ' WB ' },
-    { value: 'MID', label: ' MID ' },
-    { value: 'FWD', label: ' FWD ' },
+    { value: "GK", label: " GK " },
+    { value: "DEF", label: " DEF " },
+    { value: "WB", label: " WB " },
+    { value: "MID", label: " MID " },
+    { value: "FWD", label: " FWD " },
   ];
 
   const dropdownOptions = [
-    { value: 'GK', label: 'GK' },
-    { value: 'CB', label: 'CB' },
-    { value: 'LB', label: 'LB' },
-    { value: 'RB', label: 'RB' },
-    { value: 'LWB', label: 'LWB' },
-    { value: 'RWB', label: 'RWB' },
-    { value: 'CDM', label: 'CDM' },
-    { value: 'CM', label: 'CM' },
-    { value: 'LM', label: 'LM' },
-    { value: 'RM', label: 'RM' },
-    { value: 'CAM', label: 'CAM' },
-    { value: 'LW', label: 'LW' },
-    { value: 'RW', label: 'RW' },
-    { value: 'CF', label: 'CF' },
-    { value: 'ST', label: 'ST' },
+    { value: "GK", label: "GK" },
+    { value: "CB", label: "CB" },
+    { value: "LB", label: "LB" },
+    { value: "RB", label: "RB" },
+    { value: "LWB", label: "LWB" },
+    { value: "RWB", label: "RWB" },
+    { value: "CDM", label: "CDM" },
+    { value: "CM", label: "CM" },
+    { value: "LM", label: "LM" },
+    { value: "RM", label: "RM" },
+    { value: "CAM", label: "CAM" },
+    { value: "LW", label: "LW" },
+    { value: "RW", label: "RW" },
+    { value: "CF", label: "CF" },
+    { value: "ST", label: "ST" },
   ];
 
   return (
@@ -166,7 +172,7 @@ const AddPlayer = () => {
             <Menu as="div" className="relative inline-block text-left">
               <div>
                 <Menu.Button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center   ">
-                  {playerPosition ? playerPosition : 'Select an option'}
+                  {playerPosition ? playerPosition : "Select an option"}
                   <svg
                     class="w-4 h-4 ml-2"
                     aria-hidden="true"
@@ -195,14 +201,14 @@ const AddPlayer = () => {
               >
                 <Menu.Items
                   className="block px-4 py-2 bg-white "
-                  style={{ zIndex: '50' }}
+                  style={{ zIndex: "50" }}
                 >
                   {dropdownOptions.map((option) => (
                     <Menu.Item key={option.value}>
                       {({ active }) => (
                         <button
                           className={`${
-                            active ? 'bg-blue-500 text-white' : 'text-gray-900'
+                            active ? "bg-blue-500 text-white" : "text-gray-900"
                           } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
                           onClick={() =>
                             handleSelectplayerPosition(option.value)
@@ -254,9 +260,9 @@ const AddPlayer = () => {
                         height={400}
                         width={400}
                         style={{
-                          borderRadius: '0%',
+                          borderRadius: "0%",
                         }}
-                        src={selectedImageURL || '/image/user.jpeg'}
+                        src={selectedImageURL || "/image/user.jpeg"}
                         alt="icon"
                       />
                     </a>
