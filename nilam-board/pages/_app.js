@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout/layout';
+import Layout from '@/components/layout/layout';
 import { store } from '@/redux/store/store';
 import '@/styles/globals.css';
 import '../styles/layout.css';
