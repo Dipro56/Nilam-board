@@ -1,25 +1,78 @@
-"use client";
-import Image from "next/image";
-import React, { useEffect } from "react";
-import Link from "next/link";
-import { FaUser } from "react-icons/fa";
-import { IoMdHelpCircle } from "react-icons/io";
-import { FaList } from "react-icons/fa6";
-import { AiFillSound } from "react-icons/ai";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { useDispatch, useSelector } from "react-redux";
-import { getUserProfile } from "@/redux/feature/auth/authSlice";
-import { toggleSidebar } from "@/redux/feature/ui/uiSlice";
+'use client';
+import Image from 'next/image';
+import React, {Fragment, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { FaUser } from 'react-icons/fa';
+import { IoMdHelpCircle } from 'react-icons/io';
+import { FaList } from 'react-icons/fa6';
+import { AiFillSound } from 'react-icons/ai';
+import { FaPeopleGroup } from 'react-icons/fa6';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserProfile } from '@/redux/feature/auth/authSlice';
+import { toggleSidebar } from '@/redux/feature/ui/uiSlice';
+import { Menu, Transition } from '@headlessui/react';
+import { getAllManager, getManagerList, getManagerListLoadingStatus } from '@/redux/feature/manager/managerSlice';
+import { useRouter } from 'next/router';
 
-const Sidebar = ({ sidebarStatus, handleSidebar }) => {
+
+
+const Sidebar = () => {
   let userInfo = useSelector((state) => state.auth.userInfo);
   let sidebarOpen = useSelector((state) => state.ui.sidebarOpen);
   let userRole = userInfo?.role;
   let dispatch = useDispatch();
+  let router = useRouter()
+
+  let allManagerList = useSelector(getAllManager);
 
   useEffect(() => {
     dispatch(getUserProfile());
   }, [dispatch]);
+
+  const loadingState = useSelector(getManagerListLoadingStatus);
+  const [playerPosition, setplayerPosition] = useState();
+
+  const handleSelectManager = (value) => {
+    router.push(`/manager-details/${value?.managerId}`);
+  };
+
+  useEffect(() => {
+    if (loadingState === 'idle') {
+      dispatch(getManagerList());
+    }
+  }, [dispatch,loadingState]);
+
+  let managerOption = [];
+
+  for (let i = 0; i < allManagerList?.length; i++) {
+    //  { value: 'GK', label: 'GK' },
+    let value = {
+      managerId: allManagerList[i]?._id,
+      name: allManagerList[i]?.name,
+      club: allManagerList[i]?.club,
+    };
+
+    let label = allManagerList[i]?.name;
+    let option = {
+      id: i,
+      value,
+      label,
+    };
+    managerOption.push(option);
+  }
+
+  let itemImage = (
+    <svg
+      aria-hidden="true"
+      class="w-6 h-6 text-gray-500 transition duration-75  group-hover:text-gray-900 "
+      fill="currentColor"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+      <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+    </svg>
+  );
 
   return (
     <main className="all-page-width">
@@ -27,8 +80,8 @@ const Sidebar = ({ sidebarStatus, handleSidebar }) => {
         id="drawer-navigation"
         className={
           sidebarOpen
-            ? "fixed top-0 left-0 z-40 h-screen p-4 bg-blue-950 w-64 shadow-2xl"
-            : "fixed top-0 left-0 z-40 h-screen p-4 bg-blue-950 w-64 shadow-2xl overflow-y-auto transition-transform -translate-x-full"
+            ? 'fixed top-0 left-0 z-40 h-screen p-4 bg-blue-950 w-64 shadow-2xl'
+            : 'fixed top-0 left-0 z-40 h-screen p-4 bg-blue-950 w-64 shadow-2xl overflow-y-auto transition-transform -translate-x-full'
         }
         tabindex="-1"
         ariaLabelledby="drawer-navigation-label"
@@ -74,7 +127,7 @@ const Sidebar = ({ sidebarStatus, handleSidebar }) => {
               >
                 <FaUser
                   style={{
-                    color: "#BF0404",
+                    color: '#BF0404',
                   }}
                   size={16}
                 />
@@ -91,7 +144,7 @@ const Sidebar = ({ sidebarStatus, handleSidebar }) => {
               >
                 <FaList
                   style={{
-                    color: "#BF0404",
+                    color: '#BF0404',
                   }}
                   size={16}
                 />
@@ -108,24 +161,7 @@ const Sidebar = ({ sidebarStatus, handleSidebar }) => {
               >
                 <FaList
                   style={{
-                    color: "#BF0404",
-                  }}
-                  size={16}
-                />
-                <span className="ms-2 text-customTextColor text-sm">
-                  create-manager
-                </span>
-              </Link>
-            </li>
-
-            <li className="bg-white rounded-lg hover:bg-red-200 mb-4">
-              <Link
-                href="/create-manager"
-                className="flex items-center p-2 text-gray-900 rounded-lg  hover:bg-gray-100  group"
-              >
-                <FaList
-                  style={{
-                    color: "#BF0404",
+                    color: '#BF0404',
                   }}
                   size={16}
                 />
@@ -142,7 +178,7 @@ const Sidebar = ({ sidebarStatus, handleSidebar }) => {
               >
                 <FaList
                   style={{
-                    color: "#BF0404",
+                    color: '#BF0404',
                   }}
                   size={16}
                 />
@@ -159,7 +195,7 @@ const Sidebar = ({ sidebarStatus, handleSidebar }) => {
               >
                 <FaList
                   style={{
-                    color: "#BF0404",
+                    color: '#BF0404',
                   }}
                   size={16}
                 />
@@ -168,6 +204,67 @@ const Sidebar = ({ sidebarStatus, handleSidebar }) => {
                 </span>
               </Link>
             </li>
+
+            <div className="w-full">
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button className="text-white bg-white text-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center   ">
+                {playerPosition ? playerPosition : 'See Manger Details'}
+                <svg
+                  class="w-4 h-4 ml-2"
+                  aria-hidden="true"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </Menu.Button>
+            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items
+                className="block px-4 py-2 bg-white  "
+                style={{ zIndex: '50' }}
+              >
+                {managerOption?.map((option) => (
+                  <Menu.Item key={option.id}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          active ? 'bg-blue-500 text-white' : 'text-gray-900'
+                        } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
+                        onClick={() => {
+                          handleSelectManager(option.value);
+                        }}
+                      >
+                        {option.label}
+                      </button>
+                    )}
+                  </Menu.Item>
+                ))}
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        </div>
+             
+            
+            
+
+            
 
             {/* {userRole === "admin" && (
               <>

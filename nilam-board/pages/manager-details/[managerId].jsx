@@ -28,12 +28,12 @@ export const getServerSideProps = async (context) => {
 
 const ManagerDetails = ({ managerDetails, playerList }) => {
   const [clubPlayerList, setClubPlayerList] = useState();
-  const [refresh , setRefresh] = useState()
+  const [refresh, setRefresh] = useState();
   let router = useRouter();
 
   useEffect(() => {
-    setRefresh(Math.random())
-  },[router])
+    setRefresh(Math.random());
+  }, [router]);
 
   useEffect(() => {
     let club = managerDetails?.club;
@@ -41,7 +41,6 @@ const ManagerDetails = ({ managerDetails, playerList }) => {
     console.log('clubPlayers: ', clubPlayers);
     setClubPlayerList(clubPlayers);
   }, [managerDetails, playerList]);
-
 
   return (
     <>
@@ -52,7 +51,7 @@ const ManagerDetails = ({ managerDetails, playerList }) => {
           </div>
           <div>
             <Image
-              src={`http://localhost:5000/uploads/${managerDetails?.image}`}
+              src={managerDetails?.image}
               alt="Example Image"
               width={500}
               height={500}
@@ -96,16 +95,13 @@ const ManagerDetails = ({ managerDetails, playerList }) => {
             </thead>
             <tbody>
               {clubPlayerList?.map((item, index) => (
-                <tr
-                  key={item._id}
-                  class="bg-white border-b  "
-                >
+                <tr key={item._id} class="bg-white border-b  ">
                   <th
                     scope="row"
                     class="px-1 py-4 font-medium text-gray-900 whitespace-nowrap "
                   >
                     <Image
-                      src={`http://localhost:5000/uploads/${item?.image}`}
+                      src={item?.image}
                       alt="Example Image"
                       width={100}
                       height={100}
