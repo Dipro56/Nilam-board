@@ -129,7 +129,7 @@ const Auction = ({ playerList }) => {
     setManager();
     setManagerId();
     setTotalMoney();
-    setCounter(5);
+    setCounter(3);
   };
 
   const handleSold = () => {};
